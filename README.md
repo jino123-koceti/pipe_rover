@@ -66,6 +66,7 @@ Ouster LiDAR + IMU            ZED X Cameras
 | [`vill_slam_msgs`](src/vill_slam_msgs/) | 커스텀 메시지 (`VillSlamStatus`, `SurfaceSection`, `LaserLine`, `GeometryConstraint`). |
 | [`vill_slam_recorder`](src/vill_slam_recorder/) | 다중 포맷 데이터 기록기. CSV(10Hz), MP4 영상, 거리/시간 기반 이미지 스냅샷, **SLAM 성능 metrics 40+ 컬럼**, 루프 클로저 이벤트 로그. |
 | [`vill_slam_ui`](src/vill_slam_ui/) | PyQt5 모니터링 UI (로봇 측). |
+| [`external_pc_ui`](external_pc_ui/) | **외부 PC** Zenoh 모니터링 UI (PyQt5, ROS 2 불필요). |
 | [`line_laser_driver`](src/line_laser_driver/) | 라인 레이저 GPIO 컨트롤, 카메라 동기화, 프로파일 추출. |
 
 ## 주요 기능
@@ -97,8 +98,9 @@ Ouster LiDAR + IMU            ZED X Cameras
 
 ### Zenoh 외부 UI 브리지
 - 로봇(Jetson) ROS 2 토픽 → Zenoh → 외부 PC PyQt5 UI
-- Pose, Path, PointCloud (XYZRGB), Status, Camera images
-- 명령 역방향 전송 (`START_RECORD`, `STOP_RECORD`, ...)
+- Pose, Path, PointCloud (`/vill_slam/dense_map` XYZRGB 등), Status, Camera images
+- 명령 역방향 전송 (`START_RECORD`, `STOP_RECORD`, …)
+- **구현**: 저장소 [`external_pc_ui/`](external_pc_ui/) — 설치·실행은 해당 [README](external_pc_ui/README.md) 참고.
 
 ## 빌드
 
@@ -168,6 +170,18 @@ ros2 topic echo /vill_slam/status --once
 ```
 
 저장 경로: `/home/test/vill_slam_data/{csv,video,images}/`
+
+### 외부 PC 모니터 UI (Zenoh, ROS 없음)
+
+로봇에서 Zenoh 브리지(`zenoh_client` 등)가 동작 중일 때, 외부 PC에서:
+
+```bash
+cd external_pc_ui
+pip install -r requirements.txt
+python3 main.py
+```
+
+로봇 IP·포트(기본 7447) 입력 후 **연결**. 프로토콜 상세는 [docs/ZENOH_UI_DEVELOPMENT_GUIDE.md](docs/ZENOH_UI_DEVELOPMENT_GUIDE.md) 참고.
 
 ## 검증 결과
 
