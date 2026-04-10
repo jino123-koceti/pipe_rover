@@ -1,0 +1,67 @@
+BSD 3-Clause License
+
+Copyright (c) 2026, pipe_rover contributors
+Copyright (c) 2024, Autonomous Systems Lab, ETH Zurich (for src/coin_lio)
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-----------------------------------------------------------------------------
+                          THIRD-PARTY COMPONENTS
+-----------------------------------------------------------------------------
+
+This repository includes code derived from the following projects:
+
+1. COIN-LIO (https://github.com/ethz-asl/COIN-LIO)
+   Copyright (c) 2024, Autonomous Systems Lab, ETH Zurich
+   License: BSD 3-Clause (above) for new COIN-LIO code,
+            GNU GPL v2 for code derived from FAST-LIO2.
+   See src/coin_lio/LICENSE for the full dual-license text.
+
+   Included in: src/coin_lio/
+   Modifications: ROS 1 → ROS 2 Humble port, Ouster metadata parameter
+                  loading, FIR filter integration, LiDAR callback throttling,
+                  debug output cleanup, Dense RGB-D mapper integration.
+
+2. FAST-LIO2 (https://github.com/hku-mars/FAST_LIO)
+   Copyright (c) 2021, HKU-MARS Lab
+   License: GNU GPL v2
+   Used as the base ESIKF/ikd-Tree framework inside src/coin_lio/src/laserMapping.cpp.
+   See src/coin_lio/LICENSE for the full GPL v2 text.
+
+3. LOAM (Zhang & Singh, CMU)
+   Copyright 2013, Ji Zhang, Carnegie Mellon University
+   Used as historical reference in src/coin_lio/src/laserMapping.cpp header.
+
+Other packages in this repository (vill_slam, vill_slam_msgs,
+vill_slam_recorder, vill_slam_ui, line_laser_driver) are original work
+released under the BSD 3-Clause license above.
+
+Note on license compatibility: because src/coin_lio/ incorporates GPL v2
+code (from FAST-LIO2), any redistribution of that directory is subject to
+GPL v2 terms. The rest of this repository, which does not link against
+src/coin_lio/ as a library, remains under BSD 3-Clause. Users combining
+src/coin_lio/ with other components in binary form should comply with
+GPL v2 requirements for that combination.

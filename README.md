@@ -194,4 +194,39 @@ ros2 topic echo /vill_slam/status --once
 
 ## License
 
-각 패키지 내 `package.xml` 참고.
+이 repository는 여러 라이선스가 혼합되어 있습니다. 자세한 내용은
+[`LICENSE`](LICENSE) 파일을 참고하세요.
+
+| 디렉터리 | 라이선스 | 비고 |
+|---------|---------|------|
+| `src/coin_lio/` | **BSD 3-Clause + GPL v2** (dual) | [COIN-LIO](https://github.com/ethz-asl/COIN-LIO) (ETH Zurich ASL)에서 파생 + ROS 2 포팅. 일부 파일은 FAST-LIO2 기반이라 GPL v2. 상세는 [`src/coin_lio/LICENSE`](src/coin_lio/LICENSE), [`src/coin_lio/README.md`](src/coin_lio/README.md) 참고. |
+| `src/vill_slam/` | **BSD 3-Clause** | 본 프로젝트 자체 작성 (GTSAM 포즈 그래프, dense mapper, zenoh 브리지 등) |
+| `src/vill_slam_msgs/` | **BSD 3-Clause** | 본 프로젝트 자체 작성 |
+| `src/vill_slam_recorder/` | **BSD 3-Clause** | 본 프로젝트 자체 작성 |
+| `src/vill_slam_ui/` | **BSD 3-Clause** | 본 프로젝트 자체 작성 |
+| `src/line_laser_driver/` | **BSD 3-Clause** | 본 프로젝트 자체 작성 |
+
+### 주요 인용
+
+이 작업이 학술적으로 도움이 되었다면 아래 원논문을 인용해주세요.
+
+**COIN-LIO** (photometric LiDAR-Inertial Odometry, `src/coin_lio/`의 기반):
+```bibtex
+@inproceedings{pfreundschuh2024coinlio,
+  title     = {COIN-LIO: Complementary Intensity-Augmented LiDAR Inertial Odometry},
+  author    = {Pfreundschuh, Patrick and Oleynikova, Helen and Cadena, Cesar
+               and Siegwart, Roland and Andersson, Olov},
+  booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
+  year      = {2024}
+}
+```
+
+**FAST-LIO2** (COIN-LIO 및 본 시스템의 ESIKF 기반):
+```bibtex
+@article{xu2022fastlio2,
+  title   = {{FAST-LIO2}: Fast Direct LiDAR-Inertial Odometry},
+  author  = {Xu, Wei and Cai, Yixi and He, Dongjiao and Lin, Jiarong and Zhang, Fu},
+  journal = {IEEE Transactions on Robotics},
+  year    = {2022}
+}
+```
