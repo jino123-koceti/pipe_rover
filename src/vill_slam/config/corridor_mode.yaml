@@ -1,0 +1,27 @@
+# Corridor Mode Configuration
+# For testing in building corridors before pipe deployment
+
+vill_slam_node:
+  ros__parameters:
+    # Force corridor mode
+    environment_mode: 1  # CORRIDOR
+
+    # Plane-based constraints
+    plane_factor_weight: 10.0
+    cylinder_factor_weight: 0.0         # Disabled in corridor mode
+
+    # Frame IDs
+    world_frame: "map"
+    odom_frame: "odom"
+    base_frame: "base_link"
+
+    # Surface detection for corridors
+    plane_fit_threshold: 0.02           # Tighter threshold for flat walls
+    min_wall_distance: 1.0              # Minimum corridor width
+    max_wall_distance: 10.0             # Maximum corridor width
+
+dense_mapper_node:
+  ros__parameters:
+    voxel_size: 0.05                    # Coarser for faster mapping
+    max_range: 15.0                     # Longer range for corridors
+    min_range: 0.3

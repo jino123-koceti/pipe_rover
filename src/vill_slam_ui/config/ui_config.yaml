@@ -1,0 +1,72 @@
+# VILL-SLAM UI Configuration
+# PyQt5 Monitoring Interface Settings
+
+ui:
+  window:
+    title: "VILL-SLAM Monitor"
+    width: 1400
+    height: 900
+    dark_theme: true
+
+  camera_display:
+    width: 320
+    height: 240
+    fps: 15
+    show_fps: true
+
+  update_rates:
+    slam_state: 10.0      # Hz
+    sensor_status: 2.0    # Hz
+    camera_frames: 15.0   # Hz
+    environment_mode: 1.0 # Hz
+
+topics:
+  # SLAM outputs
+  slam_odom: "/vill_slam/odometry"
+  slam_status: "/vill_slam/status"
+  environment_mode: "/vill_slam/environment_mode"
+  environment_mode_str: "/vill_slam/environment_mode_str"
+
+  # Sensor inputs for status monitoring
+  lidar: "/ouster/points"
+  imu: "/zed_front/zed_node/imu/data"
+  wheel_odom: "/odom"
+  line_laser: "/vill_slam/laser_line"
+  surface_section: "/vill_slam/surface_section"
+  gps: "/gps/fix"
+
+  # Camera feeds
+  cameras:
+    front: "/zed_front/zed_node/rgb/image_rect_color"
+    left: "/zed_left/zed_node/rgb/image_rect_color"
+    right: "/zed_right/zed_node/rgb/image_rect_color"
+
+services:
+  start_slam: "/vill_slam/start"
+  stop_slam: "/vill_slam/stop"
+  save_map: "/vill_slam/save_map"
+  reset_slam: "/vill_slam/reset"
+  start_recording: "/vill_slam_recorder/start"
+  stop_recording: "/vill_slam_recorder/stop"
+  set_environment_mode: "/vill_slam/set_environment_mode"
+
+sensor_monitoring:
+  timeout: 5.0           # seconds before sensor marked offline
+  warning_threshold: 2.0 # seconds before warning state
+
+led_colors:
+  online: "#00FF00"      # Green
+  warning: "#FFA500"     # Orange
+  offline: "#FF0000"     # Red
+  unknown: "#808080"     # Gray
+
+launch_files:
+  vill_slam: "vill_slam vill_slam.launch.py"
+  vill_slam_corridor: "vill_slam vill_slam_corridor.launch.py"
+  recorder: "vill_slam_recorder recorder.launch.py"
+  line_laser: "line_laser_driver line_laser.launch.py"
+
+data_paths:
+  maps: "/home/test/vill_slam_maps/"
+  recordings: "/mnt/SSD/vill_slam/"
+  logs: "/home/test/vill_slam_logs/"

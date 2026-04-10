@@ -1,0 +1,88 @@
+# VILL-SLAM Configuration
+# Visual-Inertial-Laser-Lidar SLAM for pipe/corridor environments
+
+vill_slam_node:
+  ros__parameters:
+    # Environment mode: 1=CORRIDOR, 2=PIPE, 3=AUTO
+    environment_mode: 3
+
+    # Initial pipe radius estimate (meters)
+    initial_pipe_radius: 0.3
+
+    # TF publishing
+    publish_tf: true
+
+    # Frame IDs
+    world_frame: "map"
+    odom_frame: "odom"
+    base_frame: "base_link"
+
+    # Factor weights for optimization
+    cylinder_factor_weight: 10.0
+    plane_factor_weight: 5.0
+    imu_factor_weight: 100.0
+    lidar_factor_weight: 1.0
+
+    # Topic names
+    imu_topic: "/zed_front/zed_node/imu/data"
+    lidar_topic: "/ouster/points"
+    fast_lio_odom_topic: "/Odometry"
+    laser_line_topic: "/vill_slam/laser_line"
+
+    # Keyframe selection
+    keyframe_distance_threshold: 0.5    # meters between keyframes
+    keyframe_rotation_threshold: 0.3    # radians between keyframes
+
+    # Loop closure (튜닝 강화: false positive 폭주 방지)
+    loop_search_radius: 3.0             # meters - 5.0→3.0, 너무 먼 후보 제외
+    loop_min_keyframe_interval: 50      # 30→50, 시간적으로 더 멀어야 루프로 인정
+    icp_fitness_threshold: 0.1          # 0.3→0.1, 훨씬 엄격한 ICP 매칭만 허용
+    loop_scan_voxel_size: 0.2           # voxel size for loop closure scans
+    loop_cooldown_keyframes: 5          # 신규: 최근 루프 후 N개 키프레임 동안 다음 루프 금지
+
+    # LiDAR processing throttle (Hz). 0 disables.
+    # Voxel filter only needed for keyframe candidates → 1 Hz is enough.
+    lidar_process_rate_hz: 1.0
+
+    # Surface detection thresholds
+    cylinder_fit_threshold: 0.05
+    plane_fit_threshold: 0.03
+    min_detection_points: 50
+
+    # Pipe parameters
+    min_pipe_radius: 0.1
+    max_pipe_radius: 3.0
+
+dense_mapper_node:
+  ros__parameters:
+    # Voxel grid resolution
+    voxel_size: 0.02                    # 2cm voxels
+
+    # LiDAR processing throttle (Hz). Per-point camera projection is expensive
+    # and map viz only needs ~1-2 Hz updates.
+    process_rate_hz: 1.5
+
+    # Range filtering
+    max_range: 10.0
+    min_range: 0.5
+
+    # Map saving
+    save_path: "/home/test/vill_slam_maps/"
+    auto_save_interval: 0               # 0 = disabled
+
+    # Frame ID
+    map_frame: "map"
+
+    # Camera topics (ZED X front)
+    image_topic: "/zed_front/zed_node/rgb/color/rect/image"
+    camera_info_topic: "/zed_front/zed_node/rgb/color/rect/camera_info"
+
+    # Camera-LiDAR extrinsic (4x4 row-major, LiDAR→Camera transform)
+    # Approximate: camera 0.3m forward, 0.3m below LiDAR
+    # Must be calibrated for accurate color projection
+    T_cam_lidar: [
+       0.0, -1.0,  0.0,  0.0,
+       0.0,  0.0, -1.0, -0.3,
+       1.0,  0.0,  0.0, -0.3,
+       0.0,  0.0,  0.0,  1.0
+    ]

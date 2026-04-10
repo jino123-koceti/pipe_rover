@@ -1,0 +1,21 @@
+/**:
+  ros__parameters:
+    port: "/dev/microstrain_main"
+    baudrate: 115200
+    imu_data_rate: 200
+    filter_data_rate: 100
+    imu_frame_id: "microstrain_imu_link"
+    use_enu_frame: true
+
+    # Disable features not supported by GV7-AHRS (no GPS)
+    filter_pps_source: 0
+    filter_declination_source: 1
+    filter_declination: 0.0
+    filter_enable_gnss_pos_vel_aiding: false
+    filter_enable_gnss_heading_aiding: false
+    filter_enable_altimeter_aiding: false
+    filter_enable_odometer_aiding: false
+    filter_enable_magnetometer_aiding: false
+    filter_enable_external_heading_aiding: false
+    filter_enable_gnss_antenna_cal: false
+    filter_relative_position_config: false

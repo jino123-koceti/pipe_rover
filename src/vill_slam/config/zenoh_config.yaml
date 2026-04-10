@@ -1,0 +1,51 @@
+zenoh_client:
+  ros__parameters:
+    # ──────────────────────────────────────────
+    # Zenoh 연결 설정
+    # ──────────────────────────────────────────
+    zenoh_port: 7447
+    zenoh_mode: "peer"            # "peer" (기본) 또는 "client"
+    # zenoh_router: "192.168.1.100"  # client 모드일 때만 사용
+
+    # ──────────────────────────────────────────
+    # Zenoh Keys (Robot → UI)
+    # ──────────────────────────────────────────
+    pose_key: "slam/pose"
+    path_key: "slam/path"
+    pointcloud_key: "slam/pointcloud"
+    status_key: "slam/status"
+    image_front_key: "slam/image/front"
+    image_left_key: "slam/image/left"
+
+    # Zenoh Keys (UI → Robot)
+    command_key: "slam/command"
+
+    # ──────────────────────────────────────────
+    # ROS2 토픽 매핑
+    # ──────────────────────────────────────────
+    odom_topic: "/Odometry"
+    path_topic: "/path"
+    pointcloud_topic: "/cloud_registered"
+    image_front_topic: "/zed_front/zed_node/rgb/color/rect/image"
+    image_left_topic: "/zed_left/zed_node/rgb/color/rect/image"
+
+    # ──────────────────────────────────────────
+    # 발행 주기 (Hz)
+    # ──────────────────────────────────────────
+    pose_rate: 20.0
+    path_rate: 2.0
+    pointcloud_rate: 1.0
+    status_rate: 5.0
+    image_front_rate: 5.0
+    image_left_rate: 3.0
+
+    # ──────────────────────────────────────────
+    # 포인트클라우드 다운샘플링
+    # ──────────────────────────────────────────
+    voxel_size: 0.1               # meters (복셀 크기)
+    max_points: 5000              # 최대 전송 포인트 수
+
+    # ──────────────────────────────────────────
+    # 이미지 압축
+    # ──────────────────────────────────────────
+    jpeg_quality: 50              # 0-100 (낮을수록 작은 파일)

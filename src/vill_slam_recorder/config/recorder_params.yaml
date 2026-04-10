@@ -1,0 +1,35 @@
+# VILL-SLAM Data Recorder Configuration
+
+multi_format_recorder:
+  ros__parameters:
+    # Save paths (외장 SSD 마운트 안 된 환경 대응 - 홈 디렉토리 사용)
+    save_base_path: "/home/test/vill_slam_data/"
+    csv_path: "csv/"
+    video_path: "video/"
+    image_path: "images/"
+
+    # CSV recording
+    enable_csv: true
+    csv_interval: 0.1               # 10 Hz
+
+    # Video recording
+    enable_video: true
+    video_fps: 30
+    video_width: 1920
+    video_height: 1200
+    video_codec: "mp4v"             # Fallback: MJPG, H265
+
+    # Image snapshots
+    enable_images: true
+    image_interval_meters: 1.0      # Save every 1 meter
+
+    # Topic names
+    wheel_odom_topic: "/odom"
+    slam_odom_topic: "/vill_slam/odometry"
+    slam_status_topic: "/vill_slam/status"
+    surface_section_topic: "/vill_slam/surface_section"
+    temp_humi_topic: "/temp_humi"
+    gps_topic: "/gps/fix"
+    camera_front_topic: "/zed_front/zed_node/rgb/color/rect/image"
+    camera_left_topic: "/zed_left/zed_node/rgb/color/rect/image"
+    camera_right_topic: "/zed_right/zed_node/rgb/color/rect/image"

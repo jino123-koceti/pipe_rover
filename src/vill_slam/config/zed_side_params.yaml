@@ -1,0 +1,42 @@
+# ZED One 4K Side Camera Configuration for ROS2
+# Camera: ZED One 4K (좌우 측면)
+# Purpose: Side video recording only (영상 기록용)
+
+general:
+  camera_model: 'zed'
+  grab_resolution: 'HD1200'  # 1920x1200
+  grab_frame_rate: 15
+  gpu_id: -1
+
+pos_tracking:
+  pos_tracking_enabled: false  # 영상 기록만 사용
+  publish_tf: true
+  publish_map_tf: false
+  
+depth:
+  depth_mode: 'NONE'  # Depth 비활성화 (영상만 필요)
+  
+video:
+  brightness: 4
+  contrast: 4
+  hue: 0
+  saturation: 4
+  sharpness: 4
+  gamma: 8
+  auto_exposure_gain: true
+  
+sensors:
+  sensors_image_sync: false
+  publish_imu_tf: false
+  
+  imu:
+    imu_pubrate: 0  # IMU 비활성화
+    
+mapping:
+  mapping_enabled: false
+  
+object_detection:
+  od_enabled: false
+  
+body_tracking:
+  bt_enabled: false

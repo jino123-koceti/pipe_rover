@@ -1,0 +1,48 @@
+# Build artifacts
+build/
+install/
+log/
+*.o
+*.so
+*.a
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ROS2
+.colcon_*
+COLCON_IGNORE
+
+# Runtime data
+*.bag
+*.db3
+*.pcd
+*.mcap
+
+# Recorder outputs
+vill_slam_data/
+slam_logs/
+vill_slam_maps/
+
+# Logs
+*.log
+
+# COIN-LIO runtime
+src/coin_lio/Log/
+src/coin_lio/PCD/
+
+# Temporary / scratch
+*.tmp
+*.bak
+scratch/

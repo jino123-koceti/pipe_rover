@@ -1,0 +1,14 @@
+ouster/os_driver:
+  ros__parameters:
+    sensor_hostname: '169.254.241.98'
+    lidar_mode: '1024x10'
+    timestamp_mode: 'TIME_FROM_ROS_TIME'
+    udp_dest: '192.168.1.100'
+    mtp_dest: ''
+    mtp_main: false
+    lidar_port: 7502
+    imu_port: 7503
+    use_system_default_qos: false
+    proc_mask: 'IMG|PCL|IMU|SCAN'
+    scan_ring: 0
+    point_type: 'original'

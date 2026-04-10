@@ -1,0 +1,34 @@
+# Pipe Mode Configuration
+# For actual pipe/tunnel environment deployment
+
+vill_slam_node:
+  ros__parameters:
+    # Force pipe mode
+    environment_mode: 2  # PIPE
+
+    # Cylinder-based constraints
+    cylinder_factor_weight: 15.0
+    plane_factor_weight: 0.0            # Disabled in pipe mode
+
+    # Initial pipe radius (adjust based on target pipe)
+    initial_pipe_radius: 0.5            # 500mm pipe
+
+    # Frame IDs
+    world_frame: "map"
+    odom_frame: "odom"
+    base_frame: "base_link"
+
+    # Surface detection for pipes
+    cylinder_fit_threshold: 0.03        # Tighter threshold
+    min_pipe_radius: 0.25               # Minimum 250mm pipe
+    max_pipe_radius: 2.0                # Maximum 2m pipe/tunnel
+
+    # Pipe-specific parameters
+    radius_smoothing_factor: 0.1        # Low-pass filter for radius estimation
+    eccentricity_threshold: 0.3         # Max deviation from circular
+
+dense_mapper_node:
+  ros__parameters:
+    voxel_size: 0.01                    # Finer resolution for pipe inspection
+    max_range: 5.0                      # Shorter range in confined space
+    min_range: 0.1

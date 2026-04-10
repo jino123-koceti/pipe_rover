@@ -1,0 +1,64 @@
+# ZED-X Front Camera Configuration for ROS2
+# Camera: ZED-X (전방)
+# Purpose: Visual SLAM, Depth, IMU
+
+general:
+  camera_model: 'zedx'
+  camera_name: 'zed_front'
+  serial_number: 0  # Set to specific serial number if multiple cameras
+  grab_resolution: 'HD1200'  # 1920x1200
+  grab_frame_rate: 15
+  gpu_id: -1  # Auto-select GPU
+
+pos_tracking:
+  pos_tracking_enabled: false  # FAST-LIO2가 odometry 담당
+  publish_tf: true
+  publish_map_tf: false
+  map_frame: 'map'
+  odometry_frame: 'odom'
+  base_frame: 'zed_front_camera_link'
+  
+depth:
+  depth_mode: 'PERFORMANCE'  # lightest depth mode
+  depth_stabilization: 0  # disable to save CPU
+  min_depth: 0.2
+  max_depth: 20.0
+  confidence_threshold: 80
+  texture_confidence_threshold: 100
+  
+video:
+  brightness: 4
+  contrast: 4
+  hue: 0
+  saturation: 4
+  sharpness: 4
+  gamma: 8
+  auto_exposure_gain: true
+  exposure: 80
+  gain: 80
+  auto_whitebalance: true
+  
+sensors:
+  sensors_image_sync: false
+  publish_imu_tf: false
+
+  imu:
+    imu_pubrate: 200
+    imu_fusion: false  # FAST-LIO2에서 융합
+    
+  mag:
+    mag_pubrate: 0  # Magnetometer disabled
+    
+mapping:
+  mapping_enabled: false  # RTABMap에서 처리
+  resolution: 0.05
+  max_mapping_range: 20.0
+  
+object_detection:
+  od_enabled: false
+  
+body_tracking:
+  bt_enabled: false
+  
+diagnostics:
+  diagnostic_period: 1.0

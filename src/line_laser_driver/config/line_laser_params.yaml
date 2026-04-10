@@ -1,0 +1,72 @@
+# Line Laser Driver Configuration
+# For VILL-SLAM on Bunker Mini
+
+laser_gpio_controller:
+  ros__parameters:
+    # GPIO pin configuration (Jetson AGX Orin BCM numbering)
+    laser1_gpio_pin: 18
+    laser2_gpio_pin: 23
+
+    # Laser mode
+    dual_laser_mode: false      # Set to true for dual 120° lasers
+    default_state: false        # Laser off by default
+    pulse_mode: false           # Continuous mode
+    pulse_duration_ms: 10       # Pulse duration if pulse_mode is true
+
+    # Simulation mode (auto-detected if Jetson.GPIO not available)
+    simulation_mode: false
+
+laser_sync_node:
+  ros__parameters:
+    # Camera topic for synchronization
+    camera_topic: "/zed_front/zed_node/rgb/image_rect_color"
+
+    # Frame rate settings
+    target_fps: 30.0            # Target synchronized frame rate
+
+    # Alternating pattern
+    laser_on_frames: 1          # Number of consecutive frames with laser ON
+    laser_off_frames: 1         # Number of consecutive frames with laser OFF
+
+    # Sync mode: alternating, continuous, manual
+    sync_mode: "alternating"
+
+    # Warmup frames to skip during initialization
+    warmup_frames: 5
+
+line_laser_processor:
+  ros__parameters:
+    # Input/Output topics
+    camera_topic: "/vill_slam/laser_frame"
+    output_topic: "/vill_slam/laser_line"
+
+    # HSV thresholds for red laser detection
+    # Red color wraps around in HSV, so we need two ranges
+    hue_min: 0
+    hue_max: 10
+    hue_min2: 170
+    hue_max2: 180
+    saturation_min: 100
+    value_min: 200
+
+    # For green laser (520nm), use these instead:
+    # hue_min: 35
+    # hue_max: 85
+    # hue_min2: 35
+    # hue_max2: 85
+
+    # Detection parameters
+    min_line_points: 50         # Minimum points to consider valid detection
+    gaussian_blur_size: 5       # Gaussian blur kernel size (odd number)
+    morphology_size: 3          # Morphology operation kernel size
+
+    # Camera intrinsics (ZED-X HD1200 defaults)
+    # Should be updated from camera_info topic or calibration
+    fx: 732.766
+    fy: 732.555
+    cx: 960.0                   # Image width / 2
+    cy: 600.0                   # Image height / 2
+
+    # Triangulation parameters
+    laser_camera_baseline: 0.15  # Distance between laser and camera (meters)
+    laser_angle_deg: 120.0       # Laser fan beam angle (degrees)
