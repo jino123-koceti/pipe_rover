@@ -1,5 +1,0 @@
-
-train: /home/koceti/unwrap_ws/data/pipe_learning_data/images
-val: /home/koceti/unwrap_ws/data/pipe_learning_data/images
-nc: 2
-names: ["circle1", "circle2"]
